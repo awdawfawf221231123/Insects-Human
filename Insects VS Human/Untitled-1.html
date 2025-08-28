@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Насекомые против Людей</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0a192f 0%, #112240 100%);
+            color: #e6f1ff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0;
+            opacity: 0;
+            animation: fadeIn 1.5s ease forwards;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: #64ffda;
+            text-shadow: 0 0 10px rgba(100, 255, 218, 0.3);
+            letter-spacing: 2px;
+        }
+        
+        .description {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+            color: #a8b2d1;
+        }
+        
+        .google-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #4285F4;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            opacity: 0;
+            animation: fadeIn 1.5s ease 0.5s forwards;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .google-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 10px rgba(0, 0, 0, 0.2);
+            background: #357ae8;
+        }
+        
+        .google-btn i {
+            font-size: 1.5rem;
+            margin-right: 12px;
+        }
+        
+        .content {
+            display: flex;
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        .buttons-container {
+            flex: 0 0 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .main-btn {
+            background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+            color: white;
+            border: 2px solid #e6f1ff;
+            border-radius: 8px;
+            padding: 18px 24px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            opacity: 0;
+            transform: translateX(-50px);
+            animation: slideIn 0.8s ease forwards;
+        }
+        
+        .main-btn:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+        
+        .main-btn:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+        
+        .main-btn:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+        
+        .main-btn:nth-child(4) {
+            animation-delay: 0.8s;
+        }
+        
+        .main-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+        }
+        
+        .main-btn i {
+            margin-right: 12px;
+            font-size: 1.4rem;
+        }
+        
+        .info-panel {
+            flex: 1;
+            background: rgba(23, 42, 69, 0.5);
+            border-radius: 12px;
+            padding: 30px;
+            border: 1px solid #64ffda;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            animation: fadeIn 1s ease 1s forwards;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .info-title {
+            font-size: 2rem;
+            color: #64ffda;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .info-content {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #a8b2d1;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .team-member {
+            background: rgba(30, 58, 138, 0.3);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #64ffda;
+        }
+        
+        .team-role {
+            color: #64ffda;
+            font-weight: 600;
+            margin: 10px 0;
+        }
+        
+        .dev-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(30, 58, 138, 0.2);
+            border-radius: 8px;
+            border: 1px solid #64ffda;
+        }
+        
+        .key-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .key-input, .form-input, .form-textarea {
+            padding: 12px 15px;
+            border-radius: 6px;
+            border: 1px solid #64ffda;
+            background: rgba(10, 25, 47, 0.7);
+            color: #e6f1ff;
+            font-size: 1rem;
+        }
+        
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            padding: 12px;
+            border-radius: 6px;
+            border: none;
+            background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid #e6f1ff;
+        }
+        
+        .submit-btn:hover {
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+        }
+        
+        .user-panel {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(23, 42, 69, 0.8);
+            padding: 10px 15px;
+            border-radius: 30px;
+            border: 1px solid #64ffda;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #1e40af;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .logout-btn {
+            background: none;
+            border: none;
+            color: #a8b2d1;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+        
+        .logout-btn:hover {
+            color: #64ffda;
+        }
+        
+        .application-item {
+            background: rgba(30, 58, 138, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #64ffda;
+        }
+        
+        .application-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .application-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .action-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .approve-btn {
+            color: #4ade80;
+        }
+        
+        .reject-btn {
+            color: #f87171;
+        }
+        
+        .action-btn:hover {
+            transform: scale(1.2);
+        }
+        
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .status-pending {
+            background: rgba(251, 191, 36, 0.2);
+            color: #fbbf24;
+        }
+        
+        .status-approved {
+            background: rgba(52, 211, 153, 0.2);
+            color: #34d399;
+        }
+        
+        .status-rejected {
+            background: rgba(248, 113, 113, 0.2);
+            color: #f87171;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            background: rgba(23, 42, 69, 0.95);
+            border-left: 4px solid #64ffda;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            max-width: 350px;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .notification-success {
+            border-left-color: #4ade80;
+        }
+        
+        .notification-error {
+            border-left-color: #f87171;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @media (max-width: 900px) {
+            .content {
+                flex-direction: column;
+            }
+            
+            .buttons-container {
+                flex: 0 0 auto;
+                width: 100%;
+            }
+            
+            .user-panel {
+                position: relative;
+                top: 0;
+                right: 0;
+                margin-bottom: 20px;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="userPanel" class="user-panel hidden">
+            <div class="user-avatar" id="userAvatar">A</div>
+            <span id="userName">Администратор</span>
+            <button class="logout-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i>
+            </button>
+        </div>
+        
+        <div id="notification" class="notification hidden">
+            <div id="notificationMessage"></div>
+        </div>
+        
+        <header>
+            <h1>Насекомые против Людей</h1>
+            <p class="description">
+                Добро пожаловать в эпическую битву между миром насекомых и человечеством! 
+                Присоединяйтесь к нашей команде, заполните анкету и станьте частью этой увлекательной игры. 
+                Только вместе мы сможем одержать победу!
+            </p>
+            <button id="googleSignIn" class="google-btn">
+                <i class="fab fa-google"></i> Войти через Google
+            </button>
+        </header>
+        
+        <div class="content">
+            <div class="buttons-container">
+                <button class="main-btn" onclick="showInfo('form')">
+                    <i class="fas fa-file-alt"></i> Заполнить Анкету
+                </button>
+                <button class="main-btn" onclick="showInfo('devs')">
+                    <i class="fas fa-code"></i> Узнать Разработчиков
+                </button>
+                <button class="main-btn" onclick="showInfo('team')">
+                    <i class="fas fa-users"></i> Команда!
+                </button>
+                <button class="main-btn" onclick="showInfo('view')">
+                    <i class="fas fa-clipboard-list"></i> Просмотреть Анкеты
+                </button>
+                
+                <div class="dev-section">
+                    <h3>Уже разработчик?</h3>
+                    <div class="key-form">
+                        <input type="password" class="key-input" id="devKey" placeholder="Введите ключ доступа">
+                        <button class="submit-btn" onclick="checkDevKey()">Подтвердить</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="info-panel">
+                <div id="default-info">
+                    <h2 class="info-title">Добро пожаловать!</h2>
+                    <p class="info-content">
+                        Выберите одну из опций слева, чтобы узнать больше о нашей игре, команде разработчиков 
+                        или заполнить анкету для участия. Мы рады, что вы интересуетесь нашим проектом!
+                    </p>
+                </div>
+                
+                <div id="form-info" class="hidden">
+                    <h2 class="info-title">Заполнить Анкету</h2>
+                    <p class="info-content">
+                        Для участия в игре необходимо заполнить анкету. Расскажите нам о себе, своих навыках 
+                        и предпочтениях в игровом процессе. Это поможет нам определить вашу роль в команде.
+                    </p>
+                    <div class="key-form">
+                        <input type="text" class="form-input" id="applicantName" placeholder="Ваше имя">
+                        <input type="email" class="form-input" id="applicantEmail" placeholder="Email">
+                        <input type="text" class="form-input" id="applicantExperience" placeholder="Опыт в играх (лет)">
+                        <textarea class="form-textarea" id="applicantMessage" placeholder="Расскажите о себе, своих навыках и почему вы хотите присоединиться к нам"></textarea>
+                        <button class="submit-btn" onclick="submitApplication()">Отправить анкету</button>
+                    </div>
+                </div>
+                
+                <div id="devs-info" class="hidden">
+                    <h2 class="info-title">Разработчики</h2>
+                    <p class="info-content">
+                        Наша игра разрабатывается талантливой командой энтузиастов, которые горят идеей 
+                        создания уникального игрового опыта. Мы объединяем профессионалов из разных областей 
+                        для создания чего-то действительно special.
+                    </p>
+                    <div class="team-grid">
+                        <div class="team-member">
+                            <i class="fas fa-hammer fa-3x"></i>
+                            <p class="team-role">Builder</p>
+                            <p>ArtOnYT13</p>
+                            <p>Создает игровые миры и конструкции</p>
+                        </div>
+                        <div class="team-member">
+                            <i class="fas fa-code fa-3x"></i>
+                            <p class="team-role">Scripter</p>
+                            <p>Lordmigafon</p>
+                            <p>Программирует игровую логику и взаимодействия</p>
+                        </div>
+                        <div class="team-member">
+                            <i class="fas fa-paint-brush fa-3x"></i>
+                            <p class="team-role">Designer</p>
+                            <p>Dania</p>
+                            <p>Создает визуальную составляющую игры</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="team-info" class="hidden">
+                    <h2 class="info-title">Наша Команда</h2>
+                    <p class="info-content">
+                        Привет! Хочешь узнать подробнее о нашей команде? Все просто! У нас есть Builder, 
+                        Scripter, Designer. Мы нуждаемся в тебе! Присоединяйся к нам и стань частью чего-то большего.
+                    </p>
+                    <div class="team-grid">
+                        <div class="team-member">
+                            <i class="fas fa-hammer fa-3x"></i>
+                            <p class="team-role">Builder</p>
+                            <p>ArtOnYT13</p>
+                        </div>
+                        <div class="team-member">
+                            <i class="fas fa-code fa-3x"></i>
+                            <p class="team-role">Scripter</p>
+                            <p>Lordmigafon</p>
+                        </div>
+                        <div class="team-member">
+                            <i class="fas fa-paint-brush fa-3x"></i>
+                            <p class="team-role">Designer</p>
+                            <p>Dania</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="view-info" class="hidden">
+                    <h2 class="info-title">Просмотр Анкет</h2>
+                    <p class="info-content">
+                        Эта секция доступна только для разработчиков. Здесь можно просматривать и оценивать 
+                        анкеты кандидатов, желающих присоединиться к нашей команде.
+                    </p>
+                    
+                    <div id="applicationsList">
+                        <h3>Анкеты кандидатов:</h3>
+                        <div id="applicationsContainer">
+                            <!-- Анкеты будут добавляться здесь -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Хранилище данных
+        let applications = JSON.parse(localStorage.getItem('applications')) || [];
+        let isDeveloper = false;
+        
+        // Имитация входа через Google
+        document.getElementById('googleSignIn').addEventListener('click', function() {
+            const userName = "Администратор";
+            const userInitial = userName.charAt(0);
+            
+            document.getElementById('userName').textContent = userName;
+            document.getElementById('userAvatar').textContent = userInitial;
+            document.getElementById('userPanel').classList.remove('hidden');
+            document.getElementById('googleSignIn').classList.add('hidden');
+            
+            // Показываем сообщение об успешном входе
+            showNotification('Успешный вход через Google!', 'success');
+        });
+        
+        function logout() {
+            document.getElementById('userPanel').classList.add('hidden');
+            document.getElementById('googleSignIn').classList.remove('hidden');
+            isDeveloper = false;
+            showInfo('default-info');
+        }
+        
+        function showInfo(type) {
+            // Скрыть все информационные блоки
+            document.querySelectorAll('.info-panel > div').forEach(div => {
+                div.classList.add('hidden');
+            });
+            
+            // Показать выбранный информационный блок
+            document.getElementById(`${type}-info`).classList.remove('hidden');
+            
+            // Если это просмотр анкет и пользователь разработчик - загрузить анкеты
+            if (type === 'view' && isDeveloper) {
+                loadApplications();
+            }
+        }
+        
+        function checkDevKey() {
+            const key = document.getElementById('devKey').value;
+            if (key === "insect123") {
+                isDeveloper = true;
+                showNotification('Доступ разрешен! Добро пожаловать, разработчик!', 'success');
+                showInfo('view');
+            } else {
+                showNotification('Неверный ключ доступа!', 'error');
+            }
+        }
+        
+        function submitApplication() {
+            const name = document.getElementById('applicantName').value;
+            const email = document.getElementById('applicantEmail').value;
+            const experience = document.getElementById('applicantExperience').value;
+            const message = document.getElementById('applicantMessage').value;
+            
+            if (!name || !email || !experience || !message) {
+                showNotification('Пожалуйста, заполните все поля!', 'error');
+                return;
+            }
+            
+            const newApplication = {
+                id: Date.now(),
+                name,
+                email,
+                experience,
+                message,
+                status: 'pending',
+                date: new Date().toLocaleDateString('ru-RU')
+            };
+            
+            applications.push(newApplication);
+            saveApplications();
+            
+            // Очистка формы
+            document.getElementById('applicantName').value = '';
+            document.getElementById('applicantEmail').value = '';
+            document.getElementById('applicantExperience').value = '';
+            document.getElementById('applicantMessage').value = '';
+            
+            // Имитация отправки email
+            simulateEmailSend(email, 'Спасибо что выбрали нас! В течении 48 часов вы получите ответ на ваше сообщение! Для дополнительных вопросов пишите на @Po11and');
+            
+            showNotification('Анкета успешно отправлена! В течение 48 часов вы получите ответ.', 'success');
+            showInfo('default-info');
+        }
+        
+        function loadApplications() {
+            const container = document.getElementById('applicationsContainer');
+            container.innerHTML = '';
+            
+            if (applications.length === 0) {
+                container.innerHTML = '<p class="info-content">Анкет пока нет.</p>';
+                return;
+            }
+            
+            applications.forEach(app => {
+                const statusClass = 
+                    app.status === 'approved' ? 'status-approved' :
+                    app.status === 'rejected' ? 'status-rejected' : 'status-pending';
+                
+                const statusText = 
+                    app.status === 'approved' ? 'Одобрена' :
+                    app.status === 'rejected' ? 'Отклонена' : 'На рассмотрении';
+                
+                const applicationEl = document.createElement('div');
+                applicationEl.className = 'application-item';
+                applicationEl.innerHTML = `
+                    <div class="application-header">
+                        <div>
+                            <h3>${app.name}</h3>
+                            <p>${app.email} • Опыт: ${app.experience} лет • ${app.date}</p>
+                        </div>
+                        <span class="status-badge ${statusClass}">${statusText}</span>
+                    </div>
+                    <p>${app.message}</p>
+                    ${app.status === 'rejected' && app.rejectionReason ? 
+                        `<p><strong>Причина отклонения:</strong> ${app.rejectionReason}</p>` : ''}
+                    ${app.status === 'approved' && app.devKey ? 
+                        `<p><strong>Ключ разработчика:</strong> ${app.devKey}</p>` : ''}
+                    ${app.status === 'pending' ? `
+                    <div class="application-actions">
+                        <button class="action-btn approve-btn" onclick="approveApplication(${app.id})">
+                            <i class="fas fa-check-circle"></i>
+                        </button>
+                        <button class="action-btn reject-btn" onclick="rejectApplication(${app.id})">
+                            <i class="fas fa-times-circle"></i>
+                        </button>
+                    </div>
+                    ` : ''}
+                `;
+                
+                container.appendChild(applicationEl);
+            });
+        }
+        
+        function approveApplication(id) {
+            const application = applications.find(app => app.id === id);
+            if (application) {
+                application.status = 'approved';
+                application.devKey = generateDevKey();
+                saveApplications();
+                loadApplications();
+                
+                // Имитация отправки email
+                simulateEmailSend(application.email, 
+                    `Поздравляем! Ваша анкета одобрена. Спасибо что выбрали нас! Вы стали разработчиком!\nВаш ключ: ${application.devKey}\nПо подробностям пишите на @Po11and`);
+                
+                showNotification('Анкета одобрена! Кандидат получил уведомление.', 'success');
+            }
+        }
+        
+        function rejectApplication(id) {
+            const reason = prompt('Введите причину отклонения анкеты:');
+            if (reason === null) return;
+            
+            if (!reason.trim()) {
+                showNotification('Необходимо указать причину отклонения!', 'error');
+                return;
+            }
+            
+            const application = applications.find(app => app.id === id);
+            if (application) {
+                application.status = 'rejected';
+                application.rejectionReason = reason;
+                saveApplications();
+                loadApplications();
+                
+                // Имитация отправки email
+                simulateEmailSend(application.email, 
+                    `Сожалеем, но вы нам не подходите. Причина: ${reason}\nПо вопросам пишите на @Po11and`);
+                
+                showNotification('Анкета отклонена! Кандидат получил уведомление.', 'success');
+            }
+        }
+        
+        function saveApplications() {
+            localStorage.setItem('applications', JSON.stringify(applications));
+        }
+        
+        function generateDevKey() {
+            return 'dev_' + Math.random().toString(36).substr(2, 9).toUpperCase();
+        }
+        
+        function simulateEmailSend(email, message) {
+            console.log(`=== Email отправлен на ${email} ===`);
+            console.log(message);
+            console.log('================================');
+        }
+        
+        function showNotification(message, type) {
+            const notification = document.getElementById('notification');
+            const messageEl = document.getElementById('notificationMessage');
+            
+            messageEl.textContent = message;
+            notification.className = 'notification';
+            
+            if (type === 'success') {
+                notification.classList.add('notification-success');
+            } else if (type === 'error') {
+                notification.classList.add('notification-error');
+            }
+            
+            notification.classList.remove('hidden');
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    notification.classList.add('hidden');
+                }, 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
