@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Насекомые против Людей</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div id="userPanel" class="user-panel hidden">
+            <div class="user-avatar" id="userAvatar">A</div>
+            <span id="userName">Администратор</span>
+            <button class="logout-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i>
+            </button>
+        </div>
+        
+        <div id="notification" class="notification hidden">
+            <div id="notificationMessage"></div>
+        </div>
+        
+        <header>
+            <h1>Насекомые против Людей</h1>
+            <p class="description">
+                не хочешь регистрировать или же проблемы с регистрацией?
+                не проблема! напиши в личные сообщения @po11and
+                и очень быстро получишь заявку!
+            </p>
+            <button id="googleSignIn" class="google-btn">
+                <i class="fab fa-google"></i> Войти через Google
+            </button>
+        </header>
+        
+        <div class="content">
+            <div class="buttons-container">
+                <button class="main-btn" onclick="showInfo('form')">
+                    <i class="fas fa-file-alt"></i> Заполнить Анкету
+                </button>
+                <button class="main-btn" onclick="showInfo('devs')">
+                    <i class="fas fa-code"></i> Узнать Разработчиков
+                </button>
+                <button class="main-btn" onclick="showInfo('team')">
+                    <i class="fas fa-users"></i> Команда!
+                </button>
+                <button class="main-btn" onclick="showInfo('view')">
+                    <i class="fas fa-clipboard-list"></i> Просмотреть Анкеты
+                </button>
+                
+                <div class="dev-section">
+                    <h3>Уже разработчик?</h3>
+                    <div class="key-form">
+                        <input type="password" class="key-input" id="devKey" placeholder="Введите ключ доступа">
+                        <button class="submit-btn" onclick="checkDevKey()">Подтвердить</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="info-panel">
+                <div id="default-info">
+                    <h2 class="info-title">Добро пожаловать!</h2>
+                    <p class="info-content">
+                        Выберите одну из опций слева, чтобы узнать больше о нашей игре, команде разработчиков 
+                        или заполнить анкету для участия. Мы рады, что вы интересуетесь нашим проектом!
+                    </p>
+                </div>
+                
+                <div id="form-info" class="hidden">
+                    <h2 class="info-title">Заполнить Анкету</h2>
+                    <p class="info-content">
+                        Для участия в игре необходимо заполнить анкету. Расскажите нам о себе, своих навыках 
+                        и предпочтениях в игровом процессе. Это поможет нам определить вашу роль в команде.
+                    </p>
+                    <div class="key-form">
+                        <input type="text" class="form-input" id="applicantName" placeholder="Ваше имя">
+                        <input type="email" class="form-input" id="applicantEmail" placeholder="Email">
+                        <input type="text" class="form-input" id="applicantExperience" placeholder="Опыт в играх (лет)">
+                        <textarea class="form-textarea" id="applicantMessage" placeholder="Расскажите о себе, своих навыках и почему вы хотите присоединиться к нам"></textarea>
+                        <button class="submit-btn" onclick="submitApplication()">Отправить анкету</button>
+                    </div>
+                </div>
+                
+                <div id="devs-info" class="hidden">
+                    <h2 class="info-title">Разработчики</h2>
+                    <p class="info-content">
+                        Наша игра разрабатывается талантливой командой энтузиастов, которые горят идеей 
+                        создания уникального игрового опыта. Мы объединяем профессионалов из разных областей 
+                        для создания чего-то действительно special.
+                    </p>
+                    <div class="team-grid">
+                        <div class="team-member">
+                            <i class="fas fa-hammer fa-3x"></i>
+                            <p class="team-role">Builder</p>
+                            <p>Данил "Строитель"</p>
+                            <p>Создает игровые миры и конструкции</p>
+                        </div>
+                        <div class="team-member">
+                            <i class="fas fa-code fa-3x"></i>
+                            <p class="team-role">Scripter</p>
+                            <p>Глеб "Программист"</p>
+                            <p>Программирует игровую логику и взаимодействия</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="team-info" class="hidden">
+                    <h2 class="info-title">Наша Команда</h2>
+                    <p class="info-content">
+                        Привет! Хочешь узнать подробнее о нашей команде? Все просто! У нас есть Builder, 
+                        Scripter. Мы нуждаемся в тебе! Присоединяйся к нам и стань частью чего-то большего.
+                    </p>
+                    <div class="team-grid">
+                        <div class="team-member">
+                            <i class="fas fa-hammer fa-3x"></i>
+                            <p class="team-role">Builder</p>
+                            <p>Данил</p>
+                            <p>Опыт: 3 года в геймдеве</p>
+                            <p>Создает игровые миры и конструкции</p>
+                        </div>
+                        <div class="team-member">
+                            <i class="fas fa-code fa-3x"></i>
+                            <p class="team-role">Scripter</p>
+                            <p>Глеб</p>
+                            <p>Опыт: 4 года программирования</p>
+                            <p>Программирует игровую логику и взаимодействия</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="view-info" class="hidden">
+                    <h2 class="info-title">Просмотр Анкет</h2>
+                    <p class="info-content">
+                        Эта секция доступна только для разработчиков. Здесь можно просматривать и оценивать 
+                        анкеты кандидатов, желающих присоединиться к нашей команде.
+                    </p>
+                    
+                    <div id="applicationsList">
+                        <h3>Анкеты кандидатов:</h3>
+                        <div id="applicationsContainer">
+                            <!-- Анкеты будут добавляться здесь -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
